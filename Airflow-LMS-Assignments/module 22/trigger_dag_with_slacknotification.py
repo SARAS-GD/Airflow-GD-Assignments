@@ -3,13 +3,13 @@ from airflow.operators.empty import EmptyOperator
 from airflow.operators.python import PythonOperator
 from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from airflow.sensors.filesystem import FileSensor
-from airflow.utils.dates import days_ago
+from datetime import datetime, timedelta
 from airflow.operators.bash import BashOperator
 from airflow.utils.task_group import TaskGroup
 from slack import WebClient
 from slack.errors import SlackApiError
-from airflow.hooks.base_hook import BaseHook # type: ignore
-from custom_file_sensor import CustomFileSensor
+from airflow.hooks.base import BaseHook # type: ignore
+from custom_file_sensor_module_22 import CustomFileSensor
 
 
 # Slack notification function
@@ -33,7 +33,7 @@ def send_slack_notification(**kwargs):
 # Default arguments
 default_args = {
     'owner': 'airflow',
-    'start_date': days_ago(1),
+    'start_date': datetime.now() - timedelta(days=1),
     'retries': 1,
 }
 
@@ -41,7 +41,7 @@ default_args = {
 with DAG(
     dag_id='trigger_dag_with_slack_notification',
     default_args=default_args,
-    schedule_interval=None,
+    schedule=None,
     catchup=False,
 ) as dag:
 
