@@ -15,7 +15,7 @@ with DAG(
     dag_id='table_update_dag',
     default_args=default_args,
     description='A simple DAG for table updates',
-    schedule_interval=None,
+    schedule=None,
     start_date=datetime(2024, 6, 1),
     catchup=False,
 ) as dag:
