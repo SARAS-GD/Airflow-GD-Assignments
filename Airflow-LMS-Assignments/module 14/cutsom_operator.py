@@ -1,9 +1,7 @@
 from airflow.models import BaseOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
-from airflow.utils.decorators import apply_defaults
 
 class PostgreSQLCountRows(BaseOperator):
-    @apply_defaults
     def __init__(self, table_name, postgres_conn_id='postgres_default', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.table_name = table_name
