@@ -6,14 +6,14 @@ from airflow.operators.bash import BashOperator
 
 
 config = {
-    'dag_id_1': {'schedule_interval': '@daily', "start_date": datetime(2024, 1, 1)},  
-    'dag_id_2': {'schedule_interval': '@hourly', "start_date": datetime(2024, 2, 1)},  
-    'dag_id_3':{'schedule_interval': None, "start_date": datetime(2024, 3, 1)}}
+    'dag_id_1': {'schedule': '@daily', "start_date": datetime(2024, 1, 1)},  
+    'dag_id_2': {'schedule': '@hourly', "start_date": datetime(2024, 2, 1)},  
+    'dag_id_3':{'schedule': None, "start_date": datetime(2024, 3, 1)}}
 
 for dag_id, params in config.items():
     with DAG(
         dag_id=dag_id,
-        schedule_interval=params['schedule_interval'],
+        schedule=params['schedule'],
         start_date=params['start_date'],
         catchup=False
     ) as dag:
