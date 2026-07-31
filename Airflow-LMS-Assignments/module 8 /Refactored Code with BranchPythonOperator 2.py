@@ -6,9 +6,9 @@ from airflow.utils.trigger_rule import TriggerRule
 
 # Config for DAGs
 config = {
-    'dag_id_1': {'schedule_interval': '@daily', "start_date": datetime(2024, 1, 1), "table_name": "table_name_1"},
-    'dag_id_2': {'schedule_interval': '@hourly', "start_date": datetime(2024, 2, 1), "table_name": "table_name_2"},
-    'dag_id_3': {'schedule_interval': None, "start_date": datetime(2024, 3, 1), "table_name": "table_name_3"}
+    'dag_id_1': {'schedule': '@daily', "start_date": datetime(2024, 1, 1), "table_name": "table_name_1"},
+    'dag_id_2': {'schedule': '@hourly', "start_date": datetime(2024, 2, 1), "table_name": "table_name_2"},
+    'dag_id_3': {'schedule': None, "start_date": datetime(2024, 3, 1), "table_name": "table_name_3"}
 }
 
 def log_start_processing(dag_id, table_name):
@@ -26,7 +26,7 @@ def check_table_exist(table_name):
 for dag_id, params in config.items():
     with DAG(
         dag_id=dag_id,
-        schedule_interval=params['schedule_interval'],
+        schedule=params['schedule'],
         start_date=params['start_date'],
         catchup=False
     ) as dag:
